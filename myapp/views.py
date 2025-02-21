@@ -53,3 +53,20 @@ def contact_view(request):
             messages.error(request, "All fields are required!")
 
     return render(request, 'contact.html')
+
+from django.conf import settings
+from django.http import FileResponse
+import os
+from django.conf import settings
+from django.http import FileResponse, HttpResponse
+
+def download_resume(request):
+    try:
+        # Directly open the file using Django's MEDIA_ROOT
+        file_path = f"{MEDIA_ROOT}/MyPhoto/RANJEET.pdf"
+        return FileResponse(open(file_path, 'rb'), as_attachment=True)
+    
+    except FileNotFoundError:
+        return HttpResponse("File not found", status=404)
+
+
